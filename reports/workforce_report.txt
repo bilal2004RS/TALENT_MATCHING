@@ -1,0 +1,22 @@
+=======================================================
+   RAPPORT WORKFORCE ANALYTICS
+=======================================================
+
+📌 Pool total skills uniques : 14
+📌 Top 5 skills disponibles :
+   • python (35.9% des candidats)
+   • power bi (35.82% des candidats)
+   • tensorflow (35.81% des candidats)
+   • sql (35.79% des candidats)
+   • fastapi (35.78% des candidats)
+
+🔴 Top 5 skills en pénurie :
+
+🌟 Top 5 skills à recommander (formation) :
+   • Python — score opportunité: 96.88
+   • NLP — score opportunité: 96.88
+   • TensorFlow — score opportunité: 96.87
+   • TensorFlow — score opportunité: 96.84
+   • Machine Learning — score opportunité: 96.82
+
+=======================================================

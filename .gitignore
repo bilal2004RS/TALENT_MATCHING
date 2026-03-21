@@ -1,0 +1,16 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Java / Spring
+target/
+
+# React
+node_modules/
+build/
+
+# Env
+.env
+
+data/
