@@ -10,22 +10,28 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    if (!email || !password) { setError("Remplissez tous les champs"); return; }
-    setLoading(true); setError("");
-    try {
-      const res = await login(email, password);
-      localStorage.setItem("token",       res.data.token);
-      localStorage.setItem("role",        res.data.role);
-      localStorage.setItem("nom",         res.data.nom);
-      localStorage.setItem("userId",      res.data.userId);
-      localStorage.setItem("candidateId", res.data.userId);
-      const role = res.data.role;
-      if (role === "RECRUTEUR" || role === "ADMIN") navigate("/");
-      else if (role === "CANDIDAT") navigate("/candidat");
-    } catch { setError("Email ou mot de passe incorrect"); }
-    finally { setLoading(false); }
-  };
+const handleLogin = async () => {
+  if (!email || !password) {
+    setError("Remplissez tous les champs");
+    return;
+  }
+  setLoading(true); setError("");
+  try {
+    const res = await login(email, password);
+    localStorage.setItem("token",       res.data.token);
+    localStorage.setItem("role",        res.data.role);
+    localStorage.setItem("nom",         res.data.nom);
+    localStorage.setItem("userId",      res.data.userId);
+    localStorage.setItem("candidateId", res.data.candidateId || res.data.userId);
+
+    const role = res.data.role;
+    if (role === "ADMIN")             navigate("/admin");      // ← Admin → /admin
+    else if (role === "RECRUTEUR")    navigate("/dashboard");  // ← Recruteur → /dashboard
+    else if (role === "CANDIDAT")     navigate("/candidat");   // ← Candidat → /candidat
+  } catch {
+    setError("Email ou mot de passe incorrect");
+  } finally { setLoading(false); }
+};
 
   return (
     <>

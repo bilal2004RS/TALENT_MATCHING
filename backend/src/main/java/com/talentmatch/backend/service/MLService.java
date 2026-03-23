@@ -70,6 +70,16 @@ public class MLService {
         return response.getBody();
     }
 
+    public List<Map<String, Object>> getMarketSkills(int topN) {
+    String url = mlUrl + "/analytics/marche-skills?top_n=" + topN;
+    return restTemplate.getForEntity(url, List.class).getBody();
+}
+
+public List<Map<String, Object>> getCartographie(int topN) {
+    String url = mlUrl + "/analytics/cartographie-skills?top_n=" + topN;
+    return restTemplate.getForEntity(url, List.class).getBody();
+}
+
     // ── Turnover risk ────────────────────────────────────
     public Map<String, Object> getTurnoverRisk(Long candidateId) {
         String url = mlUrl + "/analytics/turnover-risk/" + candidateId;
@@ -83,6 +93,60 @@ public class MLService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(body, headers);
     }
+
+    // ── CV-based endpoints ────────────────────────────────────────
+public Map<String, Object> getTalentScoreCV(MultipartFile file) {
+    try {
+        return postFile(mlUrl + "/candidat/talent-score-cv", file);
+    } catch (Exception e) {
+        throw new RuntimeException("Erreur talent score CV: " + e.getMessage());
+    }
+}
+
+public List<Map<String, Object>> getOffresFromCV(MultipartFile file, int topN) {
+    try {
+        return postFileList(mlUrl + "/candidat/offres-cv?top_n=" + topN, file);
+    } catch (Exception e) {
+        throw new RuntimeException("Erreur offres CV: " + e.getMessage());
+    }
+}
+
+public List<Map<String, Object>> getOrientationFromCV(MultipartFile file) {
+    try {
+        return postFileList(mlUrl + "/candidat/orientation-cv", file);
+    } catch (Exception e) {
+        throw new RuntimeException("Erreur orientation CV: " + e.getMessage());
+    }
+}
+
+// ── Helpers multipart ─────────────────────────────────────────
+private Map<String, Object> postFile(String url, MultipartFile file) throws Exception {
+    MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+    body.add("file", new ByteArrayResource(file.getBytes()) {
+        @Override public String getFilename() {
+            return file.getOriginalFilename();
+        }
+    });
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+    return restTemplate.postForEntity(
+        url, new HttpEntity<>(body, headers), Map.class
+    ).getBody();
+}
+
+private List<Map<String, Object>> postFileList(String url, MultipartFile file) throws Exception {
+    MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+    body.add("file", new ByteArrayResource(file.getBytes()) {
+        @Override public String getFilename() {
+            return file.getOriginalFilename();
+        }
+    });
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+    return restTemplate.postForEntity(
+        url, new HttpEntity<>(body, headers), List.class
+    ).getBody();
+}
 
 
     // ── CANDIDAT ─────────────────────────────────────────────────
@@ -125,6 +189,8 @@ public List<Map<String, Object>> getOrientation(Long candidateId) {
     ResponseEntity<List> res = restTemplate.getForEntity(url, List.class);
     return res.getBody();
 }
+
+
 
 // ── OFFRES ───────────────────────────────────────────────────
 public Map<String, Object> publierOffre(

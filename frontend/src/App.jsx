@@ -25,6 +25,7 @@ function HomeRedirect() {
 
   if (!token) return <Navigate to="/login" />;
   if (role === "CANDIDAT") return <Navigate to="/candidat" />;
+  if (role === "ADMIN")     return <Navigate to="/admin" />;
   return <Navigate to="/dashboard" />;
 }
 

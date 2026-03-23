@@ -18,8 +18,6 @@ const links =
     ? [{ label: "Mon Espace", path: "/candidat" }]
     : role === "ADMIN"
     ? [
-        { label: "Dashboard",  path: "/dashboard" },
-        { label: "Analytics",  path: "/analytics" },
         { label: "Admin",      path: "/admin"      },
       ]
     : [

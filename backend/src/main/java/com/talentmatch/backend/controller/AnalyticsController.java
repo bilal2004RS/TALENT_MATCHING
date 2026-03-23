@@ -1,10 +1,7 @@
 package com.talentmatch.backend.controller;
 
-
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import lombok.RequiredArgsConstructor;
 import com.talentmatch.backend.service.MLService;
 
@@ -25,5 +22,18 @@ public class AnalyticsController {
     @GetMapping("/turnover/{candidateId}")
     public ResponseEntity<?> turnover(@PathVariable Long candidateId) {
         return ResponseEntity.ok(mlService.getTurnoverRisk(candidateId));
+    }
+
+    // ← ZID HADO
+    @GetMapping("/marche-skills")
+    public ResponseEntity<?> marcheSkills(
+            @RequestParam(defaultValue = "10") int topN) {
+        return ResponseEntity.ok(mlService.getMarketSkills(topN));
+    }
+
+    @GetMapping("/cartographie-skills")
+    public ResponseEntity<?> cartographie(
+            @RequestParam(defaultValue = "15") int topN) {
+        return ResponseEntity.ok(mlService.getCartographie(topN));
     }
 }

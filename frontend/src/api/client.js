@@ -37,10 +37,10 @@ export const getTurnoverRisk = (candidate_id) =>
   API.get(`/api/analytics/turnover/${candidate_id}`);
 
 export const getMarketSkills = (top_n = 10) =>    // ← nouveau
-  API.get(`/api/analytics/marche-skills?top_n=${top_n}`);
+  API.get(`/api/analytics/marche-skills?topN=${top_n}`);
 
 export const getCartographie = (top_n = 20) =>    // ← nouveau
-  API.get(`/api/analytics/cartographie-skills?top_n=${top_n}`);
+  API.get(`/api/analytics/cartographie-skills?topN=${top_n}`);
 
 
 // ── CANDIDAT ──────────────────────────────────
@@ -52,15 +52,26 @@ export const uploadCV = (candidateId, file) => {
   );
 };
 
-export const getTalentScore = (candidateId) =>
-  API.get(`/api/candidat/talent-score/${candidateId}`);
+export const getTalentScoreCV = (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return API.post("/api/candidat/talent-score-cv", formData,
+    { headers: { "Content-Type": "multipart/form-data" } });
+};
 
-export const getOffresRecommandees = (candidateId, topN = 5) =>
-  API.get(`/api/candidat/offres/${candidateId}?topN=${topN}`);
+export const getOffresFromCV = (file, topN = 5) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return API.post(`/api/candidat/offres-cv?top_n=${topN}`, formData,
+    { headers: { "Content-Type": "multipart/form-data" } });
+};
 
-export const getOrientation = (candidateId) =>
-  API.get(`/api/candidat/orientation/${candidateId}`);
-
+export const getOrientationFromCV = (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return API.post("/api/candidat/orientation-cv", formData,
+    { headers: { "Content-Type": "multipart/form-data" } });
+};
 // ── OFFRES ────────────────────────────────────
 export const publierOffre = (data) =>
   API.post("/api/offres", data);

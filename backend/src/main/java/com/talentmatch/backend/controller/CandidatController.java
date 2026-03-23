@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.List;   // ← zid
-import java.util.Map;    // ← zid
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/candidat")
@@ -43,5 +43,26 @@ public class CandidatController {
         List<Map<String, Object>> data =
             mlService.getOrientation(candidateId);
         return ResponseEntity.ok(data);
+    }
+
+    // ── ZID HADO ─────────────────────────────────────
+
+    @PostMapping("/talent-score-cv")
+    public ResponseEntity<?> getTalentScoreCV(
+            @RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok(mlService.getTalentScoreCV(file));
+    }
+
+    @PostMapping("/offres-cv")
+    public ResponseEntity<?> getOffresFromCV(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam(defaultValue = "5") int topN) {
+        return ResponseEntity.ok(mlService.getOffresFromCV(file, topN));
+    }
+
+    @PostMapping("/orientation-cv")
+    public ResponseEntity<?> getOrientationFromCV(
+            @RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok(mlService.getOrientationFromCV(file));
     }
 }
