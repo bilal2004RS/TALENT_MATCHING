@@ -81,7 +81,8 @@ export default function Dashboard() {
     try {
       const res = await publierOffre({
         ...offre,
-        salaireEstime: parseInt(offre.salaireEstime) || 0
+        salaireEstime: parseInt(offre.salaireEstime) || 0,
+        recruteurId   : parseInt(userId)
       });
       setSuccess(`✅ Offre publiée ! Job ID: ${res.data.job_id}`);
       setOffre({ titrePoste: "", secteur: "", localisation: "",
