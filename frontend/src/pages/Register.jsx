@@ -58,7 +58,7 @@ export default function Register() {
         /* ── LEFT ── */
         .reg-left {
           width: 42%;
-          background: linear-gradient(145deg, #6C5CE7 0%, #4834d4 60%, #2d1fa3 100%);
+          background: linear-gradient(145deg, #0D9488 0%, #0D9488 60%, #0D9488 100%);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -72,7 +72,7 @@ export default function Register() {
           position: absolute;
           width: 350px; height: 350px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.06);
+          background: #0D9488;
           top: -100px; left: -80px;
         }
         .reg-left::after {
@@ -80,7 +80,7 @@ export default function Register() {
           position: absolute;
           width: 250px; height: 250px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.04);
+          background: #0D9488;
           bottom: -60px; right: -60px;
         }
         .reg-brand {
@@ -164,7 +164,7 @@ export default function Register() {
           font-family: 'Syne', sans-serif;
           font-size: 1.8rem;
           font-weight: 800;
-          color: #1a1a2e;
+          color: #0D9488;
           margin-bottom: 4px;
           letter-spacing: -0.5px;
         }
@@ -198,9 +198,9 @@ export default function Register() {
           gap: 6px;
         }
         .role-btn.active {
-          border-color: #6C5CE7;
-          background: rgba(108,92,231,0.07);
-          color: #6C5CE7;
+          border-color: #0D9488;
+          background: rgba(13, 148, 136, 0.07);
+          color: #0D9488;
           font-weight: 600;
         }
         .role-btn:hover:not(.active) {
@@ -226,15 +226,15 @@ export default function Register() {
           border-radius: 12px;
           font-size: 0.92rem;
           font-family: 'DM Sans', sans-serif;
-          color: #1a1a2e;
+          color: #0D9488;
           background: #fafafa;
           outline: none;
           transition: all 0.2s;
         }
         .reg-input:focus {
-          border-color: #6C5CE7;
+          border-color: #0D9488;
           background: #fff;
-          box-shadow: 0 0 0 3px rgba(108,92,231,0.08);
+          box-shadow: 0 0 0 3px #0D9488;
         }
         .reg-helper {
           font-size: 0.75rem;
@@ -245,7 +245,7 @@ export default function Register() {
         .reg-btn {
           width: 100%;
           padding: 14px;
-          background: linear-gradient(135deg, #6C5CE7, #4834d4);
+          background: linear-gradient(135deg, #0D9488, #0D9488);
           color: #fff;
           border: none;
           border-radius: 12px;
@@ -262,7 +262,7 @@ export default function Register() {
         }
         .reg-btn:hover:not(:disabled) {
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(108,92,231,0.35);
+          box-shadow: 0 8px 24px #0D9488;
         }
         .reg-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
@@ -285,7 +285,7 @@ export default function Register() {
           margin-top: 20px;
         }
         .reg-login-link a {
-          color: #6C5CE7;
+          color: #0D9488;
           font-weight: 600;
           text-decoration: none;
         }
@@ -360,12 +360,12 @@ export default function Register() {
         {/* ── RIGHT ── */}
         <div className="reg-right">
           <div className="reg-wrapper">
-            <div className="reg-title">Créer un compte ✨</div>
+            <div className="reg-title">Créer un compte </div>
             <div className="reg-sub">Rejoignez des milliers de talents et recruteurs</div>
 
             {/* Role toggle */}
             <div className="role-toggle">
-              {[["CANDIDAT","👤","Candidat"],["RECRUTEUR","🏢","Recruteur"]].map(([v,ic,lb]) => (
+              {[["CANDIDAT","","Candidat"],["RECRUTEUR","","Recruteur"]].map(([v,ic,lb]) => (
                 <button
                   key={v}
                   className={`role-btn ${role === v ? "active" : ""}`}

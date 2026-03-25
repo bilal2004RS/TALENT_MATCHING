@@ -97,8 +97,8 @@ export default function AdminSpace() {
       <Box sx={{ mb: 3, display: "flex",
         justifyContent: "space-between", alignItems: "center" }}>
         <Box>
-          <Typography variant="h4" fontWeight="bold" color="#0F1E3D">
-            ⚙️ Back Office Admin
+          <Typography variant="h4" fontWeight="bold" color="#0D9488">
+             Back Office Admin
           </Typography>
           <Typography color="text.secondary">
             Gestion utilisateurs · Monitoring temps réel · Data Drift
@@ -133,16 +133,16 @@ export default function AdminSpace() {
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {[
           { label: "Utilisateurs", value: users.length || "...",
-            icon: "👥", color: "#0D9488" },
+            icon: "", color: "#0D9488" },
           { label: "Admins",
             value: users.filter(u => u.role === "ADMIN").length || 0,
-            icon: "🔑", color: "#EF4444" },
+            icon: "", color: "#0D9488" },
           { label: "Recruteurs",
             value: users.filter(u => u.role === "RECRUTEUR").length || 0,
-            icon: "🏢", color: "#6C5CE7" },
+            icon: "", color: "#0D9488" },
           { label: "Candidats",
             value: users.filter(u => u.role === "CANDIDAT").length || 0,
-            icon: "👤", color: "#8B5CF6" },
+            icon: "", color: "#0D9488" },
         ].map((k, i) => (
           <Grid item xs={6} md={3} key={i}>
             <Card sx={{ borderRadius: 3,
@@ -161,10 +161,13 @@ export default function AdminSpace() {
       </Grid>
 
       <Tabs value={tab} onChange={handleTabChange}
-        sx={{ mb: 3, borderBottom: "2px solid #E2E8F0" }}>
-        <Tab label="👥 Gérer Utilisateurs" />
-        <Tab label="📡 Monitoring Système" />
-        <Tab label="🔬 Data Drift"         />
+        sx={{ mb: 3, borderBottom: "2px solid #E2E8F0" , "& .MuiTab-root": {
+          fontWeight: "bold", color: "#64748B",
+          "&.Mui-selected": { color: "#0D9488" }
+        }}}>
+        <Tab label=" Gérer Utilisateurs" />
+        <Tab label=" Monitoring Système" />
+        <Tab label=" Data Drift"         />
       </Tabs>
 
       {error   && <Alert severity="error"   sx={{ mb: 2 }}>{error}</Alert>}
@@ -182,9 +185,9 @@ export default function AdminSpace() {
           <CardContent>
             <Box sx={{ display: "flex",
               justifyContent: "space-between",
-              alignItems: "center", mb: 2 }}>
-              <Typography variant="h6" fontWeight="bold">
-                👥 Utilisateurs ({users.length})
+              alignItems: "center", mb: 2 ,borderBottom: "1px solid #E2E8F0", pb: 1}}>
+              <Typography variant="h6" fontWeight="bold" color="#0D9488">
+                 Utilisateurs ({users.length})
               </Typography>
             </Box>
             <Table size="small">
@@ -250,107 +253,173 @@ export default function AdminSpace() {
         </Card>
       )}
 
-      {/* ── TAB 1 : Monitoring ── */}
-      {tab === 1 && !loading && monitoring && (
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Card sx={{ borderRadius: 3 }}>
-              <CardContent>
-                <Box sx={{ display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center", mb: 2 }}>
-                  <Typography variant="h6" fontWeight="bold">
-                    💻 Système
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {new Date(monitoring.timestamp)
-                      .toLocaleTimeString()}
-                  </Typography>
-                </Box>
-                {[
-                  { label: "CPU",  value: monitoring.cpu_percent },
-                  { label: "RAM",  value: monitoring.ram_percent },
-                  { label: "Disk", value: monitoring.disk_percent },
-                ].map((item) => (
-                  <Box key={item.label} sx={{ mb: 2 }}>
-                    <Box sx={{ display: "flex",
-                      justifyContent: "space-between" }}>
-                      <Typography variant="body2">
-                        {item.label}
-                      </Typography>
-                      <Typography variant="body2" fontWeight="bold"
-                        color={item.value > 80 ? "#EF4444"
-                          : item.value > 60 ? "#F59E0B" : "#10B981"}>
-                        {item.value}%
-                      </Typography>
-                    </Box>
-                    <LinearProgress variant="determinate"
-                      value={Math.min(item.value, 100)}
-                      sx={{ height: 10, borderRadius: 4,
-                        "& .MuiLinearProgress-bar": {
-                          background: item.value > 80 ? "#EF4444"
-                            : item.value > 60 ? "#F59E0B" : "#10B981"
-                        }
-                      }} />
-                  </Box>
-                ))}
-                <Typography variant="caption" color="text.secondary">
-                  💾 RAM: {monitoring.ram_used_gb} GB /
-                  {monitoring.ram_total_gb} GB
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+{/* ── TAB 1 : Monitoring ── */}
+{tab === 1 && !loading && monitoring && (
+  <Grid container spacing={3}>
 
-          <Grid item xs={12} md={6}>
-            <Card sx={{ borderRadius: 3 }}>
-              <CardContent>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  🤖 Modèles ML
-                </Typography>
-                {monitoringML && [
-                  { label: "TF-IDF Vectorizer",
-                    status: monitoringML.tfidf_vectorizer?.status,
-                    detail: `Vocabulaire: ${monitoringML.tfidf_vectorizer?.vocabulaire?.toLocaleString()} mots` },
-                  { label: "CV Vectors",
-                    status: monitoringML.cv_vectors?.status,
-                    detail: `${monitoringML.cv_vectors?.nb_cvs?.toLocaleString()} CVs vectorisés` },
-                  { label: "Offre Vectors",
-                    status: monitoringML.offre_vectors?.status,
-                    detail: `${monitoringML.offre_vectors?.nb_offres?.toLocaleString()} offres vectorisées` },
-                ].map((item) => (
-                  <Box key={item.label} sx={{ mb: 2, p: 1.5,
-                    borderRadius: 2, border: "1px solid #E2E8F0",
-                    background: "#FAFAFA" }}>
-                    <Box sx={{ display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center" }}>
-                      <Typography variant="body2" fontWeight="bold">
-                        {item.label}
-                      </Typography>
-                      <Chip
-                        label={item.status || "✅ Chargé"}
-                        size="small"
-                        sx={{ background: "#D1FAE5",
-                          color: "#065F46", fontSize: "0.7rem" }} />
-                    </Box>
-                    <Typography variant="caption"
-                      color="text.secondary">
-                      {item.detail}
-                    </Typography>
-                  </Box>
-                ))}
-                <Typography variant="caption" color="text.secondary">
-                  🕐 {monitoringML?.derniere_mise_a_jour
-                    ? new Date(monitoringML.derniere_mise_a_jour)
-                        .toLocaleTimeString() : ""}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      )}
+    {/* SYSTEM CARD */}
+    <Grid item xs={12} md={7}>
+      <Card sx={{
+        borderRadius: 4,
+        p: 1,
+        minHeight: 320,
+        boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
+        border: "1px solid #E2E8F0"
+      }}>
+        <CardContent>
 
+          {/* HEADER */}
+          <Box sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 3,
+            pb: 1,
+            borderBottom: "1px solid #E2E8F0"
+          }}>
+            <Typography variant="h5" fontWeight="bold" color="#0D9488">
+              Système
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {new Date(monitoring.timestamp).toLocaleTimeString()}
+            </Typography>
+          </Box>
+
+          {/* METRICS */}
+          {[
+            { label: "CPU",  value: monitoring.cpu_percent },
+            { label: "RAM",  value: monitoring.ram_percent },
+            { label: "Disk", value: monitoring.disk_percent },
+          ].map((item) => (
+            <Box key={item.label} sx={{ mb: 3 }}>
+
+              <Box sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                mb: 0.5
+              }}>
+                <Typography fontSize={15}>
+                  {item.label}
+                </Typography>
+
+                <Typography fontWeight="bold" fontSize={15}
+                  color={
+                    item.value > 80 ? "#EF4444"
+                    : item.value > 60 ? "#F59E0B"
+                    : "#10B981"
+                  }>
+                  {item.value}%
+                </Typography>
+              </Box>
+
+              <LinearProgress
+                variant="determinate"
+                value={Math.min(item.value, 100)}
+                sx={{
+                  height: 12,
+                  borderRadius: 6,
+                  background: "#F1F5F9",
+                  "& .MuiLinearProgress-bar": {
+                    borderRadius: 6,
+                    background:
+                      item.value > 80 ? "#EF4444"
+                      : item.value > 60 ? "#F59E0B"
+                      : "#10B981"
+                  }
+                }}
+              />
+            </Box>
+          ))}
+
+          <Typography mt={2} fontSize={13} color="text.secondary">
+            RAM: {monitoring.ram_used_gb} GB / {monitoring.ram_total_gb} GB
+          </Typography>
+
+        </CardContent>
+      </Card>
+    </Grid>
+
+    {/* ML CARD */}
+    <Grid item xs={12} md={5}>
+      <Card sx={{
+        borderRadius: 4,
+        p: 1,
+        minHeight: 320,
+        boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
+        border: "1px solid #E2E8F0"
+      }}>
+        <CardContent>
+
+          {/* HEADER */}
+          <Typography variant="h5" fontWeight="bold"
+            color="#0D9488" sx={{ mb: 3 }}>
+            Modèles ML
+          </Typography>
+
+          {monitoringML && [
+            {
+              label: "TF-IDF Vectorizer",
+              status: monitoringML.tfidf_vectorizer?.status,
+              detail: `Vocabulaire: ${monitoringML.tfidf_vectorizer?.vocabulaire?.toLocaleString()} mots`
+            },
+            {
+              label: "CV Vectors",
+              status: monitoringML.cv_vectors?.status,
+              detail: `${monitoringML.cv_vectors?.nb_cvs?.toLocaleString()} CVs vectorisés`
+            },
+            {
+              label: "Offre Vectors",
+              status: monitoringML.offre_vectors?.status,
+              detail: `${monitoringML.offre_vectors?.nb_offres?.toLocaleString()} offres vectorisées`
+            },
+          ].map((item) => (
+            <Box key={item.label} sx={{
+              mb: 2,
+              p: 2,
+              borderRadius: 3,
+              border: "1px solid #E2E8F0",
+              background: "#FAFAFA"
+            }}>
+
+              <Box sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 0.5
+              }}>
+                <Typography fontWeight="bold">
+                  {item.label}
+                </Typography>
+
+                <Chip
+                  label={item.status || "Chargé"}
+                  sx={{
+                    background: "#D1FAE5",
+                    color: "#065F46",
+                    fontWeight: "bold"
+                  }}
+                />
+              </Box>
+
+              <Typography fontSize={13} color="text.secondary">
+                {item.detail}
+              </Typography>
+
+            </Box>
+          ))}
+
+          <Typography mt={2} fontSize={13} color="text.secondary">
+            {monitoringML?.derniere_mise_a_jour
+              ? new Date(monitoringML.derniere_mise_a_jour).toLocaleTimeString()
+              : ""}
+          </Typography>
+
+        </CardContent>
+      </Card>
+    </Grid>
+
+  </Grid>
+)}
       {/* ── TAB 2 : Data Drift ── */}
       {tab === 2 && !loading && drift && (
         <Box>
@@ -376,7 +445,7 @@ export default function AdminSpace() {
                         {key.replace(/_/g, " ").toUpperCase()}
                       </Typography>
                       <Chip
-                        label={val.drift ? "⚠️ Drift" : "✅ Stable"}
+                        label={val.drift ? " Drift" : " Stable"}
                         size="small"
                         sx={{
                           background: val.drift ? "#FEE2E2" : "#D1FAE5",

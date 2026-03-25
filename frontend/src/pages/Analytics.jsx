@@ -56,7 +56,7 @@ export default function Analytics() {
       {/* Header */}
       <Box sx={{ mb: 3 }}>
         <Typography variant="h4" fontWeight="bold" color="#0F1E3D">
-          📊 Workforce Analytics
+           Workforce Analytics
         </Typography>
         <Typography color="text.secondary">
           Analyse en temps réel — 350K CVs · 200K Offres · 200K Skills marché
@@ -68,10 +68,10 @@ export default function Analytics() {
       {/* KPI Cards */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {[
-          { label: "Skills analysés",    value: carto.length > 0 ? `${carto.reduce((a,s) => a + (s.count||0), 0).toLocaleString()}` : "...", icon: "🧠", color: "#0D9488" },
-          { label: "Skills en pénurie",  value: skillGap.filter(s => (s.gap_pct||0) > 20).length, icon: "⚠️", color: "#EF4444" },
-          { label: "Top skill marché",   value: market[0]?.skill || "...", icon: "🚀", color: "#6C5CE7" },
-          { label: "Croissance moyenne", value: market.length > 0 ? `${(market.reduce((a,s) => a + (s.croissance_pct||0), 0) / market.length).toFixed(1)}%` : "...", icon: "📈", color: "#F59E0B" },
+          { label: "Skills analysés",    value: carto.length > 0 ? `${carto.reduce((a,s) => a + (s.count||0), 0).toLocaleString()}` : "...", icon: "", color: "#0D9488" },
+          { label: "Skills en pénurie",  value: skillGap.filter(s => (s.gap_pct||0) > 20).length, icon: "", color: "#0D9488" },
+          { label: "Top skill marché",   value: market[0]?.skill || "...", icon: "", color: "#0D9488" },
+          { label: "Croissance moyenne", value: market.length > 0 ? `${(market.reduce((a,s) => a + (s.croissance_pct||0), 0) / market.length).toFixed(1)}%` : "...", icon: "", color: "#0D9488" },
         ].map((k, i) => (
           <Grid item xs={6} md={3} key={i}>
             <Card sx={{ borderRadius: 3, border: `1px solid ${k.color}20` }}>
@@ -91,9 +91,9 @@ export default function Analytics() {
 
       <Tabs value={tab} onChange={(_, v) => setTab(v)}
         sx={{ mb: 3, borderBottom: "2px solid #E2E8F0" }}>
-        <Tab label="🔴 Skill Gap"        />
-        <Tab label="📈 Marché Skills"    />
-        <Tab label="🗺️ Cartographie"    />
+        <Tab label=" Skill Gap"        />
+        <Tab label=" Marché Skills"    />
+        <Tab label=" Cartographie"    />
       </Tabs>
 
       {/* ── TAB 0 : SKILL GAP ── */}
@@ -102,7 +102,7 @@ export default function Analytics() {
           <Grid item xs={12}>
             <Card sx={{ borderRadius: 3, p: 2 }}>
               <Typography variant="h6" fontWeight="bold" gutterBottom>
-                🔴 Skills en Pénurie — Gap Demande vs Disponibilité
+                 Skills en Pénurie — Gap Demande vs Disponibilité
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 Plus le gap est élevé, plus le skill est rare dans le marché
@@ -167,7 +167,7 @@ export default function Analytics() {
           <Grid item xs={12} md={7}>
             <Card sx={{ borderRadius: 3, p: 2 }}>
               <Typography variant="h6" fontWeight="bold" gutterBottom>
-                💰 Salaire Moyen par Skill
+                 Salaire Moyen par Skill
               </Typography>
               <ResponsiveContainer width="100%" height={320}>
                 <BarChart data={market} margin={{ left: 10, bottom: 40 }}>
@@ -191,7 +191,7 @@ export default function Analytics() {
           <Grid item xs={12} md={5}>
             <Card sx={{ borderRadius: 3, p: 2 }}>
               <Typography variant="h6" fontWeight="bold" gutterBottom>
-                📈 Croissance Annuelle (%)
+                 Croissance Annuelle (%)
               </Typography>
               <ResponsiveContainer width="100%" height={320}>
                 <BarChart data={market} layout="vertical"
@@ -223,19 +223,19 @@ export default function Analytics() {
                     <Typography variant="h6" fontWeight="bold" color="#0F1E3D">
                       {item.skill}
                     </Typography>
-                    <Chip label={item.tendance || "📈"}
+                    <Chip label={item.tendance || ""}
                       size="small"
                       sx={{ background: "#F0FDF9", color: TEAL,
                         fontWeight: "bold" }} />
                   </Box>
                   <Typography variant="body2" color="text.secondary">
-                    📈 Demande: <strong>{item.demande_marche_pct}%</strong>
+                     Demande: <strong>{item.demande_marche_pct}%</strong>
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    🚀 Croissance: <strong>{item.croissance_pct}%/an</strong>
+                     Croissance: <strong>{item.croissance_pct}%/an</strong>
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    💰 Salaire: <strong>
+                     Salaire: <strong>
                       {item.salaire_moyen?.toLocaleString()} DH
                     </strong>
                   </Typography>
@@ -259,7 +259,7 @@ export default function Analytics() {
           <Grid item xs={12}>
             <Card sx={{ borderRadius: 3, p: 2 }}>
               <Typography variant="h6" fontWeight="bold" gutterBottom>
-                🗺️ Top 15 Skills — Pool de 350K Candidats
+                 Top 15 Skills — Pool de 350K Candidats
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 Compétences les plus présentes dans les CVs analysés

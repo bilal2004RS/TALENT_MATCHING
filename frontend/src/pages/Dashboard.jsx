@@ -39,6 +39,7 @@ export default function Dashboard() {
   });
 
   const nom = localStorage.getItem("nom") || "Recruteur";
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     getDashboardStats()
@@ -112,7 +113,7 @@ export default function Dashboard() {
       {/* Header */}
       <Box sx={{ mb: 3 }}>
         <Typography variant="h4" fontWeight="bold" color="#0F1E3D">
-          👋 Bonjour, {nom}
+           Bonjour, {nom}
         </Typography>
         <Typography color="text.secondary">
           Dashboard Recruteur — Gérez vos offres et trouvez les meilleurs talents
@@ -124,18 +125,18 @@ export default function Dashboard() {
         {[
           { label: "CVs disponibles",
             value: stats?.total_cvs?.toLocaleString() || "...",
-            color: "#0D9488", icon: "👤" },
+            color: "#0D9488", icon: "" },
           { label: "Offres actives",
             value: stats?.total_offres?.toLocaleString() || "...",
-            color: "#8B5CF6", icon: "💼" },
+            color: "#0D9488", icon: "" },
           { label: "Score moyen CV",
             value: stats ? `${stats.score_moyen_cv}/5` : "...",
-            color: "#F59E0B", icon: "⭐" },
+            color: "#0D9488", icon: "" },
           { label: "Salaire moyen",
             value: stats
               ? `${stats.salaire_moyen_offre?.toLocaleString()} DH`
               : "...",
-            color: "#10B981", icon: "💰" },
+            color: "#0D9488", icon: "" },
         ].map((s, i) => (
           <Grid item xs={6} md={3} key={i}>
             <Card sx={{ borderRadius: 3,
@@ -159,10 +160,10 @@ export default function Dashboard() {
           setError(""); setSuccess("");
         }}
         sx={{ mb: 3, borderBottom: "2px solid #E2E8F0" }}>
-        <Tab label="🔍 Matching"           />
-        <Tab label="🔎 Recherche"          />
-        <Tab label="📋 Publier une Offre"  />
-        <Tab label="📊 Statistiques"       />
+        <Tab label=" Matching"           />
+        <Tab label=" Recherche"          />
+        <Tab label=" Publier une Offre"  />
+        <Tab label=" Statistiques"       />
       </Tabs>
 
       {error   && <Alert severity="error"   sx={{ mb: 2 }}>{error}</Alert>}
@@ -234,7 +235,7 @@ export default function Dashboard() {
       {tab === 1 && (
         <Box>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            💡 Ex: "data scientist NLP senior Casablanca"
+             Ex: "data scientist NLP senior Casablanca"
           </Typography>
           <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
             <TextField fullWidth size="small"
@@ -270,7 +271,7 @@ export default function Dashboard() {
         <Card sx={{ borderRadius: 3, border: "1px solid #E2E8F0" }}>
           <CardContent>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
-              📋 Nouvelle Offre d'Emploi
+               Nouvelle Offre d'Emploi
             </Typography>
             <Grid container spacing={2}>
               {[
@@ -326,7 +327,7 @@ export default function Dashboard() {
             <Card sx={{ borderRadius: 3 }}>
               <CardContent>
                 <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  🎓 Niveaux des Candidats
+                   Niveaux des Candidats
                 </Typography>
                 {niveauxData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={260}>
@@ -357,7 +358,7 @@ export default function Dashboard() {
             <Card sx={{ borderRadius: 3 }}>
               <CardContent>
                 <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  🏢 Top Secteurs — Offres
+                   Top Secteurs — Offres
                 </Typography>
                 {secteursData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={260}>
@@ -391,7 +392,7 @@ export default function Dashboard() {
             <Card sx={{ borderRadius: 3 }}>
               <CardContent>
                 <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  📍 Top Localisations — Candidats
+                   Top Localisations — Candidats
                 </Typography>
                 {localisationsData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={220}>

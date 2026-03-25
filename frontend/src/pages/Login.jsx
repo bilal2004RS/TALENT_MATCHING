@@ -41,6 +41,7 @@ const handleLogin = async () => {
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         .login-root {
+          
           min-height: 100vh;
           display: flex;
           font-family: 'DM Sans', sans-serif;
@@ -50,7 +51,7 @@ const handleLogin = async () => {
         /* ── LEFT PANEL ── */
         .left-panel {
           width: 45%;
-          background: linear-gradient(145deg, #6C5CE7 0%, #4834d4 60%, #2d1fa3 100%);
+          background: linear-gradient(145deg, #0D9488 0%, #0D9488 60%, #0D9488 100%);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -65,7 +66,7 @@ const handleLogin = async () => {
           position: absolute;
           width: 400px; height: 400px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.06);
+          background: #0D9488;
           top: -100px; left: -100px;
         }
 
@@ -74,7 +75,7 @@ const handleLogin = async () => {
           position: absolute;
           width: 300px; height: 300px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.04);
+          background: #0D9488;
           bottom: -80px; right: -80px;
         }
 
@@ -102,7 +103,7 @@ const handleLogin = async () => {
           width: 100%;
           max-width: 320px;
           z-index: 1;
-          filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25));
+          filter: drop-shadow(0 20px 40px #0D9488);
           animation: float 4s ease-in-out infinite;
         }
 
@@ -131,7 +132,7 @@ const handleLogin = async () => {
         .feature-dot {
           width: 8px; height: 8px;
           border-radius: 50%;
-          background: #a8edea;
+          background: #0D9488;
           flex-shrink: 0;
         }
 
@@ -160,7 +161,7 @@ const handleLogin = async () => {
           font-family: 'Syne', sans-serif;
           font-size: 2rem;
           font-weight: 800;
-          color: #1a1a2e;
+          color: #0D9488;
           margin-bottom: 6px;
           letter-spacing: -0.5px;
         }
@@ -179,7 +180,7 @@ const handleLogin = async () => {
           display: block;
           font-size: 0.82rem;
           font-weight: 500;
-          color: #444;
+          color: #0D9488;
           margin-bottom: 8px;
           letter-spacing: 0.3px;
         }
@@ -191,22 +192,22 @@ const handleLogin = async () => {
           border-radius: 14px;
           font-size: 0.95rem;
           font-family: 'DM Sans', sans-serif;
-          color: #1a1a2e;
+          color: #0D9488;
           background: #fafafa;
           outline: none;
           transition: all 0.2s;
         }
 
         .field-input:focus {
-          border-color: #6C5CE7;
+          border-color: #0D9488;
           background: #fff;
-          box-shadow: 0 0 0 4px rgba(108,92,231,0.08);
+          box-shadow: 0 0 0 4px #0D9488;
         }
 
         .login-btn {
           width: 100%;
           padding: 15px;
-          background: linear-gradient(135deg, #6C5CE7, #4834d4);
+          background: linear-gradient(135deg, #0D9488, #0D9488);
           color: #fff;
           border: none;
           border-radius: 14px;
@@ -225,7 +226,7 @@ const handleLogin = async () => {
 
         .login-btn:hover:not(:disabled) {
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(108,92,231,0.35);
+          box-shadow: 0 8px 24px #0D9488);
         }
 
         .login-btn:disabled { opacity: 0.7; cursor: not-allowed; }
@@ -256,7 +257,7 @@ const handleLogin = async () => {
         }
 
         .register-link a {
-          color: #6C5CE7;
+          color: #0D9488;
           font-weight: 600;
           text-decoration: none;
         }
@@ -335,7 +336,7 @@ const handleLogin = async () => {
 
             {/* Check badge */}
             <circle cx="80" cy="200" r="18" fill="#a8edea"/>
-            <path d="M72 200 L78 206 L90 194" stroke="#4834d4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M72 200 L78 206 L90 194" stroke="#0D9488" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
 
           <div className="features">
@@ -355,7 +356,7 @@ const handleLogin = async () => {
         {/* ── RIGHT ── */}
         <div className="right-panel">
           <div className="form-wrapper">
-            <div className="form-title">Bon retour 👋</div>
+            <div className="form-title">bon <span>retour</span></div>
             <div className="form-sub">
               Connectez-vous à votre espace personnel
             </div>
