@@ -46,13 +46,13 @@ export default function MatchCard({ result, mode = "cv" }) {
                 </Typography>
                 <Box sx={{ display: "flex", gap: 2, mt: 0.5 }}>
                   <Typography variant="body2" color="text.secondary">
-                    📍 {result.localisation}
+                    {result.localisation}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    🎓 {result.niveau} — {result.annees_exp} ans exp
+                    {result.niveau} — {result.annees_exp} ans exp
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    ⭐ Score CV: {result.score_cv}
+                    Score CV: {result.score_cv}
                   </Typography>
                 </Box>
               </>
@@ -69,19 +69,19 @@ export default function MatchCard({ result, mode = "cv" }) {
         <Box>
           {exp.skills_matchés?.length > 0 && (
             <Box sx={{ mb: 0.5 }}>
-              <Typography variant="caption" color="text.secondary">✅ Matchés</Typography>
+              <Typography variant="caption" color="text.secondary">Matchés</Typography>
               <Box>{exp.skills_matchés.map(s => <SkillBadge key={s} skill={s} type="match" />)}</Box>
             </Box>
           )}
           {exp.skills_manquants?.length > 0 && (
             <Box sx={{ mb: 0.5 }}>
-              <Typography variant="caption" color="text.secondary">❌ Manquants</Typography>
+              <Typography variant="caption" color="text.secondary">Manquants</Typography>
               <Box>{exp.skills_manquants.map(s => <SkillBadge key={s} skill={s} type="missing" />)}</Box>
             </Box>
           )}
           {exp.skills_bonus?.length > 0 && (
             <Box>
-              <Typography variant="caption" color="text.secondary">🎁 Bonus</Typography>
+              <Typography variant="caption" color="text.secondary">Bonus</Typography>
               <Box>{exp.skills_bonus.map(s => <SkillBadge key={s} skill={s} type="bonus" />)}</Box>
             </Box>
           )}
