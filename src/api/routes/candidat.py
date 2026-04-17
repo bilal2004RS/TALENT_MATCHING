@@ -307,22 +307,22 @@ async def get_orientation_from_cv(file: UploadFile = File(...)):
     annees_exp = cv_data["annees_exp"]
 
     metiers = [
-        {"titre":"Data Engineer",  "icon":"🚀",
+        {"titre":"Data Engineer",  "icon":"",
          "skills_requis":{"python","sql","spark","airflow","docker"},
          "description":"Construire et maintenir les pipelines de données"},
-        {"titre":"ML Engineer",    "icon":"🤖",
+        {"titre":"ML Engineer",    "icon":"",
          "skills_requis":{"python","tensorflow","pytorch","docker","kubernetes"},
          "description":"Déployer et optimiser les modèles en production"},
-        {"titre":"Data Scientist", "icon":"📊",
+        {"titre":"Data Scientist", "icon":"",
          "skills_requis":{"python","machine learning","sql","pandas","numpy"},
          "description":"Analyser les données et construire des modèles prédictifs"},
-        {"titre":"Data Analyst",   "icon":"📈",
+        {"titre":"Data Analyst",   "icon":"",
          "skills_requis":{"sql","python","powerbi","excel","tableau"},
          "description":"Analyser et visualiser les données métier"},
-        {"titre":"DevOps / MLOps", "icon":"⚙️",
+        {"titre":"DevOps / MLOps", "icon":"",
          "skills_requis":{"docker","kubernetes","linux","git","airflow"},
          "description":"Automatiser le déploiement et la maintenance"},
-        {"titre":"Full Stack Dev", "icon":"💻",
+        {"titre":"Full Stack Dev", "icon":"",
          "skills_requis":{"javascript","react","node.js","sql","git"},
          "description":"Développer des applications web complètes"},
     ]

@@ -15,16 +15,16 @@ export default function ScoreBar({ score }) {
           {score}%
         </Typography>
       </Box>
-      <LinearProgress
-        variant="determinate"
-        value={score}
-        sx={{
-          height: 8,
-          borderRadius: 4,
-          backgroundColor: "#E2E8F0",
-          "& .MuiLinearProgress-bar": { backgroundColor: color, borderRadius: 4 },
-        }}
-      />
+<LinearProgress
+  variant="determinate"
+  value={Math.min(Math.max(score || 0, 0), 100)}
+  sx={{
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#E2E8F0",
+    "& .MuiLinearProgress-bar": { backgroundColor: color, borderRadius: 4 },
+  }}
+/>
     </Box>
   );
 }
