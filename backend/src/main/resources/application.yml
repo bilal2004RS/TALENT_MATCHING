@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/talentmatch
+    url: jdbc:postgresql://localhost:5432/talentmatch
     username: postgres
-    password: 123
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

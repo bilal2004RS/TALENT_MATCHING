@@ -1,15 +1,19 @@
 import {
-  Card, CardContent, Typography, Box, Divider, Chip
+  Card, CardContent, Typography, Box, Divider
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import BusinessIcon   from "@mui/icons-material/Business";
 import EuroIcon       from "@mui/icons-material/Euro";
 import ScoreBar  from "./ScoreBar";
 import SkillBadge from "./SkillBadge";
+import { Button } from "@mui/material";
+
 
 export default function MatchCard({ result, mode = "cv" }) {
   const exp = result.explication || {};
-
+  const handleApply = () => {
+  alert("CLICK خدم");
+  };
   return (
     <Card sx={{
       mb: 2, borderRadius: 3,
@@ -85,6 +89,19 @@ export default function MatchCard({ result, mode = "cv" }) {
               <Box>{exp.skills_bonus.map(s => <SkillBadge key={s} skill={s} type="bonus" />)}</Box>
             </Box>
           )}
+          <Box sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}>
+            <Button 
+              variant="contained" 
+              color="success"
+              onClick={handleApply}
+            >
+              TEST BUTTON
+            </Button>
+
+            <Button variant="outlined">
+              Plus de détails
+            </Button>
+          </Box>
         </Box>
       </CardContent>
     </Card>

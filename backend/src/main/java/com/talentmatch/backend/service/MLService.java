@@ -14,7 +14,12 @@ import com.talentmatch.backend.controller.CandidatController;
 import com.talentmatch.backend.controller.AnalyticsController;
 
 import org.springframework.http.*;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.nio.file.*;
 
 @Service
 public class MLService {
@@ -153,7 +158,21 @@ private List<Map<String, Object>> postFileList(String url, MultipartFile file) t
     public Map<String, Object> uploadCV(Long candidateId,
                                      MultipartFile file) {
     try {
+
+        // 🟢 1. SAVE CV فـ backend
+        Path uploadPath = Paths.get("data/cv");
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        Path filePath = uploadPath.resolve(candidateId + ".pdf");
+
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        // 🟡 2. من بعد صيفطو ل ML
         String url = mlUrl + "/candidat/upload-cv/" + candidateId;
+
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", new ByteArrayResource(file.getBytes()) {
             @Override
@@ -161,13 +180,18 @@ private List<Map<String, Object>> postFileList(String url, MultipartFile file) t
                 return file.getOriginalFilename();
             }
         });
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
         HttpEntity<MultiValueMap<String, Object>> request =
             new HttpEntity<>(body, headers);
+
         ResponseEntity<Map> res =
             restTemplate.postForEntity(url, request, Map.class);
+
         return res.getBody();
+
     } catch (Exception e) {
         throw new RuntimeException("Erreur upload CV: " + e.getMessage());
     }

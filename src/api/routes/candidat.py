@@ -14,10 +14,13 @@ def parse_cv_text(content: bytes, filename: str) -> dict:
     # ── Extraction ──────────────────
     if filename.endswith(".pdf"):
         try:
-            import pdfplumber
-            with pdfplumber.open(io.BytesIO(content)) as pdf:
-                for page in pdf.pages:
-                    extracted_text += page.extract_text() or ""
+            import fitz  # PyMuPDF
+            doc = fitz.open(stream=content, filetype="pdf")
+            extracted_text = ""
+
+            for page in doc:
+                extracted_text += page.get_text()
+
         except:
             pass
 
@@ -28,7 +31,7 @@ def parse_cv_text(content: bytes, filename: str) -> dict:
             extracted_text = " ".join([p.text for p in doc.paragraphs])
         except:
             pass
-
+    print("TEXT LENGTH:", len(extracted_text))
     text_lower = extracted_text.lower()
 
     # ── Skills ──────────────────────
