@@ -2,15 +2,16 @@
    RAPPORT WORKFORCE ANALYTICS
 =======================================================
 
-📌 Pool total skills uniques : 14
+📌 Pool total skills uniques : 56
 📌 Top 5 skills disponibles :
-   • python (35.9% des candidats)
-   • power bi (35.82% des candidats)
-   • tensorflow (35.81% des candidats)
-   • sql (35.79% des candidats)
-   • fastapi (35.78% des candidats)
+   • kotlin (49.37% des candidats)
+   • php (49.31% des candidats)
+   • perl (49.26% des candidats)
+   • javascript (49.24% des candidats)
+   • typescript (49.24% des candidats)
 
 🔴 Top 5 skills en pénurie :
+   • fastapi (gap: +35.75%)
 
 🌟 Top 5 skills à recommander (formation) :
    • Python — score opportunité: 96.88

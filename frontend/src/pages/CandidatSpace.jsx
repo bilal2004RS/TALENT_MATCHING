@@ -1,11 +1,30 @@
 import { useState, useEffect } from "react";
-import { CircularProgress, Alert } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import {
   uploadCV, getTalentScoreCV,
   getOffresFromCV, getOrientationFromCV
 } from "../api/client";
+import axios from "axios";
 
 export default function CandidatSpace() {
+  const handleApply = async (offreId) => {
+    try {
+      const userId = localStorage.getItem("userId"); 
+      console.log("USER ID:", userId);
+      const res = await axios.post("http://localhost:8080/applications", {
+        userId: userId,
+        offreId: offreId
+      });
+
+      console.log("SUCCESS", res);
+      alert("Postulation envoyée ✅");
+
+    } catch (err) {
+      console.error("ERROR", err);
+      alert("Erreur ❌");
+    }
+  };
+
   const [tab, setTab]         = useState("profile");
   const [file, setFile]       = useState(null);
   const [cvFile, setCvFile]   = useState(null);
@@ -332,12 +351,12 @@ export default function CandidatSpace() {
                 </h3>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6,
                   marginBottom: 12 }}>
-                  {analyse.competences?.slice(0,8).map(s => (
+                  {analyse.competences?.slice(0,100).map(s => (
                     <span key={s} className="cs2-chip blue">{s}</span>
                   ))}
-                  {analyse.competences?.length > 8 && (
+                  {analyse.competences?.length > 100 && (
                     <span className="cs2-chip">
-                      +{analyse.competences.length - 8}
+                      +{analyse.competences.length - 100}
                     </span>
                   )}
                 </div>
@@ -434,9 +453,12 @@ export default function CandidatSpace() {
                       </div>
                     )}
                     <div className="cs2-job-btns">
-                      <button className="cs2-btn cs2-btn-primary"
-                        style={{ flex: 1 }}>
-                        Postuler
+                      <button 
+                        className="cs2-btn cs2-btn-primary"
+                        style={{ flex: 1 }}
+                        onClick={() => handleApply(job.job_id)}
+                      >
+                        postuler
                       </button>
                       <button className="cs2-btn cs2-btn-outline">
                         Plus de détails
@@ -627,7 +649,7 @@ export default function CandidatSpace() {
                       {analyse.competences?.length || 0}
                     </p>
                     <p className="cs2-activity-sub">
-                      {analyse.competences?.slice(0,3).join(", ")}...
+                      {analyse.competences?.slice(0,100).join(", ")}...
                     </p>
                   </div>
                   <div className="cs2-activity"

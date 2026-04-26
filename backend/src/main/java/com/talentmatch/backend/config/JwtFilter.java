@@ -19,16 +19,23 @@ public class JwtFilter extends OncePerRequestFilter {
 
     // ← ZID HADI — skip auth endpoints
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getServletPath();
-        return path.startsWith("/api/auth/");
-    }
+protected boolean shouldNotFilter(HttpServletRequest request) {
+    String path = request.getServletPath();
+    return path.startsWith("/api/auth/");
+}
 
     @Override
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain)
             throws ServletException, IOException {
+        String path = req.getRequestURI();
+
+        // 🚀 حل نهائي: خليه يدوز بلا JWT
+        if (path.contains("/api/candidat/cv")) {
+            chain.doFilter(req, res);
+            return;
+        }
 
         if ("OPTIONS".equalsIgnoreCase(req.getMethod())) {
             chain.doFilter(req, res);

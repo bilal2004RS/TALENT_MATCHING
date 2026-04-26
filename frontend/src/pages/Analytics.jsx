@@ -189,13 +189,13 @@ export default function Analytics() {
 
           {/* Line chart croissance */}
           <Grid item xs={12} md={5}>
-            <Card sx={{ borderRadius: 3, p: 2 }}>
+            <Card sx={{ borderRadius: 3, p: 2,height: "90%",width: "90%" }}>
               <Typography variant="h6" fontWeight="bold" gutterBottom>
                  Croissance Annuelle (%)
               </Typography>
               <ResponsiveContainer width="100%" height={320}>
                 <BarChart data={market} layout="vertical"
-                  margin={{ left: 80 }}>
+                  margin={{ right: 80 }}>
                   <XAxis type="number" unit="%" />
                   <YAxis type="category" dataKey="skill"
                     tick={{ fontSize: 11 }} width={80} />

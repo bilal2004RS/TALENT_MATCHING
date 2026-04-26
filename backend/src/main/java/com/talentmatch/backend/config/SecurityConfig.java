@@ -27,11 +27,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .headers(headers -> headers.frameOptions(frame -> frame.disable()))
             .cors(cors -> cors.configurationSource(corsSource()))
             .sessionManagement(s -> s.sessionCreationPolicy(
                 SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
+            .authorizeHttpRequests(auth -> auth 
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/applications/**").permitAll()
+                .requestMatchers("/api/candidat/cv/**").permitAll() 
+                
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/matching/**").hasAnyRole("RECRUTEUR","ADMIN")
                 .requestMatchers("/api/offres/**").hasAnyRole("RECRUTEUR","ADMIN")
@@ -39,8 +43,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/candidat/**").hasAnyRole("CANDIDAT","ADMIN")
                 .anyRequest().authenticated()
             )
-            .addFilterBefore(jwtFilter,
-                UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

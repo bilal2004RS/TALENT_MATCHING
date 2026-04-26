@@ -5,10 +5,22 @@ import com.talentmatch.backend.repository.CandidatProfileRepository;
 import com.talentmatch.backend.service.MLService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -119,5 +131,21 @@ public class CandidatController {
     public ResponseEntity<?> getTalentScore(
             @PathVariable Long candidateId) {
         return ResponseEntity.ok(mlService.getTalentScore(candidateId));
+    }
+    @GetMapping("/cv/{id}")
+    public ResponseEntity<Resource> getCv(@PathVariable Long id) throws IOException {
+
+    Path path = Paths.get("data/cv/" + id + ".pdf");
+
+    if (!Files.exists(path)) {
+        return ResponseEntity.notFound().build();
+    }
+
+    Resource resource = new UrlResource(path.toUri());
+
+    return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_PDF)
+            .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=cv.pdf")
+            .body(resource);
     }
 }

@@ -14,10 +14,13 @@ def parse_cv_text(content: bytes, filename: str) -> dict:
     # ── Extraction ──────────────────
     if filename.endswith(".pdf"):
         try:
-            import pdfplumber
-            with pdfplumber.open(io.BytesIO(content)) as pdf:
-                for page in pdf.pages:
-                    extracted_text += page.extract_text() or ""
+            import fitz  # PyMuPDF
+            doc = fitz.open(stream=content, filetype="pdf")
+            extracted_text = ""
+
+            for page in doc:
+                extracted_text += page.get_text()
+
         except:
             pass
 
@@ -28,18 +31,24 @@ def parse_cv_text(content: bytes, filename: str) -> dict:
             extracted_text = " ".join([p.text for p in doc.paragraphs])
         except:
             pass
-
+    print("TEXT LENGTH:", len(extracted_text))
     text_lower = extracted_text.lower()
 
     # ── Skills ──────────────────────
-    all_skills = ["python","java","javascript","react","sql","docker","kubernetes",
-                  "machine learning","deep learning","fastapi","spring boot",
-                  "tensorflow","pytorch","aws","azure","mongodb","postgresql",
-                  "git","linux","spark","hadoop","scala","r","tableau","powerbi",
-                  "excel","nlp","node.js","angular","vue.js","django","flask",
-                  "pandas","numpy","scikit-learn","airflow","kafka","redis",
-                  "data science","big data","devops","agile","scrum","c++",
-                  "c#","kotlin","swift","matlab","elasticsearch"]
+    all_skills = [
+    "python","java","c","c++","c#","javascript","typescript","go","rust",
+    "kotlin","swift","php","scala","r","matlab","dart","ruby","perl",
+    "machine learning","deep learning","nlp","computer vision",
+    "tensorflow","pytorch","scikit-learn",
+    "pandas","numpy","matplotlib","seaborn",
+    "sql","mysql","postgresql","mongodb",
+    "power bi","tableau","excel",
+    "big data","spark","hadoop",
+    "docker","kubernetes","aws","azure","gcp",
+    "git","linux","bash",
+    "flask","django","spring","nodejs","react",
+    "data analysis","data mining","etl","airflow","fastapi","rest","graphql",
+]
 
     soft_skills_list = ["leadership","communication","teamwork","problem solving",
                         "creativity","time management","adaptability","critical thinking",
@@ -171,7 +180,7 @@ async def upload_cv(user_id: int, file: UploadFile = File(...)):
         "score_cv"         : cv_data["score_cv"],
         "niveau"           : cv_data["niveau"],
         "annees_experience": cv_data["annees_exp"],
-        "competences"      : cv_data["skills"][:8],
+        "competences"      : cv_data["skills"][:100],
         "soft_skills"      : cv_data["soft_skills"][:5],
         "points_forts"     : points_forts,
         "points_ameliorer" : points_ameliorer,
@@ -225,7 +234,7 @@ async def get_talent_score_cv(file: UploadFile = File(...)):
         "niveau"          : cv_data["niveau"],
         "annees_experience": cv_data["annees_exp"],
         "localisation"    : cv_data["localisation"],
-        "competences"     : cv_data["skills"][:8],
+        "competences"     : cv_data["skills"][:100],
         "percentile"      : percentile,
     }
 
